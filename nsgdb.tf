@@ -1,6 +1,7 @@
 /*
-resource "azurerm_network_security_group" "this_vm_nsg" {
-  name                = "acceptanceTestSecurityGroup1"
+
+resource "azurerm_network_security_group" "this_db_nsg" {
+  name                = "${local.owner}-${local.environment}-${var.db_nsg_name}"
   location            = azurerm_resource_group.this_rg.location
   resource_group_name = azurerm_resource_group.this_rg.name
 
@@ -14,30 +15,32 @@ resource "azurerm_network_security_group" "this_vm_nsg" {
     destination_port_range     = "*"
     source_address_prefix      = "*"
     destination_address_prefix = "*"
-  }
-}
 
 
-
-resource "azurerm_network_security_rule" "this_vm_network_security_rule" {
-  name                        = "${local.owner}-${local.environment}-${var.vm_network_security_rule_name}"
+    /*resource "azurerm_network_security_rule" "this_db_network_security_rule" {
+  name                        = "${local.owner}-${local.environment}-${var.db_network_security_rule_name}"
   priority                    = 100
   direction                   = "Inbound"
   access                      = "Allow"
   protocol                    = "Tcp"
   source_port_range           = "*"
-  destination_port_range      = "3389"
+  destination_port_range      = "3306"
   source_address_prefix       = "*"
   destination_address_prefix  = "*"
   resource_group_name         = azurerm_resource_group.this_rg.name
-  network_security_group_name = azurerm_network_security_group.this_vm_nsg.name
+  network_security_group_name = azurerm_network_security_group.this_db_nsg.name
+}
+  }
 }
 
 
-
-
-resource "azurerm_subnet_network_security_group_association" "this_vm_nsg_association" {
+resource "azurerm_subnet_network_security_group_association" "this_db_nsg_association" {
   subnet_id                 = azurerm_subnet.this_subnet.id
-  network_security_group_id = azurerm_network_security_group.this_vm_nsg.id
+  network_security_group_id = azurerm_network_security_group.this_db_nsg.id
+}
+
+resource "azurerm_subnet_network_security_group_association" "this_db_nsg_association" {
+  subnet_id                 = azurerm_subnet.this_subnet.id
+  network_security_group_id = azurerm_network_security_group.this_db_nsg.id
 }
 */
