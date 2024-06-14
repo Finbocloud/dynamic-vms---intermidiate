@@ -13,7 +13,7 @@ variable "environment" {
   type        = string
   default     = "vms"
 }
-variable "vnet" {
+variable "virtual_network" {
   description = "virtual network"
   type        = string
   default     = "vnet"
@@ -28,7 +28,7 @@ variable "subnet" {
   type        = string
   default     = "internal"
 }
-variable "nic" {
+variable "network_nic" {
   description = "network interface card"
   type        = string
   default     = "nic"
