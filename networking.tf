@@ -5,7 +5,7 @@ resource "azurerm_virtual_network" "this_vnet" {
   resource_group_name = azurerm_resource_group.this_rg.name
 }
 
-resource "azurerm_subnet" "example" {
+/*resource "azurerm_subnet" "example" {
   name                 = "internal"
   resource_group_name  = azurerm_resource_group.this_rg.name
   virtual_network_name = azurerm_virtual_network.this_vnet.name
@@ -23,7 +23,7 @@ resource "azurerm_network_interface" "this_nic" {
     private_ip_address_allocation = "Dynamic"
     public_ip_address_id          = azurerm_public_ip.this_publicip.id
   }
-}
+}*/
 
 resource "azurerm_public_ip" "this_publicip" {
   name                = "${local.owner}-${var.public_ip}-${local.environment}"
@@ -32,4 +32,25 @@ resource "azurerm_public_ip" "this_publicip" {
   allocation_method   = "Static"
 
   tags = local.tags
+}
+resource "azurerm_network_interface" "this_nic" {
+  for_each = toset(var.usernames)
+  name     = "nic-for-${each.value}"
+  location = azurerm_resource_group.this_rg.location
+
+  resource_group_name = azurerm_resource_group.this_rg.name
+  ip_configuration {
+    name                          = "internal"
+    subnet_id                     = azurerm_subnet.this_subnet.id
+    private_ip_address_allocation = "Dynamic"
+    #public_ip_address_id          = azurerm_public_ip.students_public_ip[each.key].id
+  }
+  depends_on = [
+  azurerm_subnet.this_subnet]
+}
+resource "azurerm_subnet" "this_subnet" {
+  name                 = "${local.owner}-${local.environment}-${var.subnet}"
+  resource_group_name  = azurerm_resource_group.this_rg.name
+  virtual_network_name = azurerm_virtual_network.this_vnet.name
+  address_prefixes     = ["10.0.2.0/24"]
 }
