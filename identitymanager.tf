@@ -1,6 +1,6 @@
 resource "azurerm_user_assigned_identity" "this_asigned_identity" {
   location            = azurerm_resource_group.this_rg.location
-  name                = "rasheed_identity"
+  name                = "kv-identity"
   resource_group_name = azurerm_resource_group.this_rg.name
 }
 
