@@ -1,4 +1,4 @@
-/*
+
 resource "azurerm_network_security_group" "this_vm_nsg" {
   name                = "acceptanceTestSecurityGroup1"
   location            = azurerm_resource_group.this_rg.location
@@ -40,4 +40,3 @@ resource "azurerm_subnet_network_security_group_association" "this_vm_nsg_associ
   subnet_id                 = azurerm_subnet.this_subnet.id
   network_security_group_id = azurerm_network_security_group.this_vm_nsg.id
 }
-*/
