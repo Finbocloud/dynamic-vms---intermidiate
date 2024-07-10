@@ -19,6 +19,7 @@ resource "azurerm_key_vault" "this_keyvault" {
 resource "azurerm_key_vault_secret" "this_vm_secret" {
   for_each     = toset(var.usernames) # some map or list variable
   name         = "secret-for-${each.key}"
+  # random_password is still fadded coz there is no value generated yet
   value        = random_password.this_password[each.value].result
   key_vault_id = azurerm_key_vault.this_keyvault.id
 }
