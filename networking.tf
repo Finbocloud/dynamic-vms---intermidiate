@@ -6,6 +6,7 @@ resource "azurerm_subnet" "this_subnet" {
 }
 
 resource "azurerm_network_interface" "this_nic" {
+  for_each            = toset(var.usernames)
   name                = "${local.owner}-${var.network_nic}-${local.environment}"
   location            = azurerm_resource_group.this_rg.location
   resource_group_name = azurerm_resource_group.this_rg.name
