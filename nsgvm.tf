@@ -1,6 +1,6 @@
 
 resource "azurerm_network_security_group" "this_vm_nsg" {
-  name                = "acceptanceTestSecurityGroup1"
+  name                = "vm-nsg"
   location            = azurerm_resource_group.this_rg.location
   resource_group_name = azurerm_resource_group.this_rg.name
 
@@ -21,7 +21,7 @@ resource "azurerm_network_security_group" "this_vm_nsg" {
 
 resource "azurerm_network_security_rule" "this_vm_network_security_rule" {
   name                        = "${local.owner}-${local.environment}-${var.vm_network_security_rule_name}"
-  priority                    = 100
+  priority                    = 101
   direction                   = "Inbound"
   access                      = "Allow"
   protocol                    = "Tcp"

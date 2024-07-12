@@ -7,7 +7,7 @@ resource "azurerm_subnet" "this_subnet" {
 
 resource "azurerm_network_interface" "this_nic" {
   for_each            = toset(var.usernames)
-  name                = "${local.owner}-${var.network_nic}-${local.environment}"
+  name                = "nic-for-${each.value}"
   location            = azurerm_resource_group.this_rg.location
   resource_group_name = azurerm_resource_group.this_rg.name
 
@@ -15,12 +15,13 @@ resource "azurerm_network_interface" "this_nic" {
     name                          = "ip-config-vm"
     subnet_id                     = azurerm_subnet.this_subnet.id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = azurerm_public_ip.this_publicip.id
+    public_ip_address_id          = azurerm_public_ip.this_publicip[each.key].id
   }
 }
 
 resource "azurerm_public_ip" "this_publicip" {
-  name                = "${local.owner}-${var.public_ip}-${local.environment}"
+  for_each = toset(var.usernames)
+  name                = "public-ip-for-${each.value}"
   resource_group_name = azurerm_resource_group.this_rg.name
   location            = azurerm_resource_group.this_rg.location
   allocation_method   = "Static"
