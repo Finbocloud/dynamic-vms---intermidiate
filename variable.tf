@@ -83,5 +83,5 @@ variable "usernames" {
   type        = list(string)
   default     = ["rasheed"]
   # default can be chnaged to the below if the Quota (this needs to be reuested to be increased) can contacin it:
-  # default = ["rasheed, onas, moji"]
+  # default = ["rasheed", "onas", "moji"]
 }
