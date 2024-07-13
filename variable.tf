@@ -76,7 +76,7 @@ variable "vm_nsg_name" {
 variable "keyvault_name" {
   description = "keayvault name"
   type        = string
-  default     = "dynamickeyvault993894"
+  default     = "dynamickeyvault99389"
 }
 variable "usernames" {
   description = "keayvault name"
@@ -85,3 +85,5 @@ variable "usernames" {
   # default can be chnaged to the below if the Quota (this needs to be reuested to be increased) can contacin it:
   # default = ["rasheed", "onas", "moji"]
 }
+
+
