@@ -26,7 +26,7 @@ variable "location" {
 variable "subnet" {
   description = "subnet name"
   type        = string
-  default     = "internal"
+  default     = "subnet"
 }
 variable "network_nic" {
   description = "network interface card"
