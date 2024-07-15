@@ -68,7 +68,7 @@ variable "db_nsg_name" {
   type        = string
   default     = "db-nsg-name"
 }
-variable "vm_nsg_name" {
+variable "vm_nsg" {
   description = "vm network security group name"
   type        = string
   default     = "vm-nsg-name"
