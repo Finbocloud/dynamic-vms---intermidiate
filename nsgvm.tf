@@ -1,6 +1,6 @@
 
 resource "azurerm_network_security_group" "this_vm_nsg" {
-  name                = "vm-nsg"
+  name                = "${local.owner}-${local.environment}-${var.vm_nsg}"
   location            = azurerm_resource_group.this_rg.location
   resource_group_name = azurerm_resource_group.this_rg.name
 
